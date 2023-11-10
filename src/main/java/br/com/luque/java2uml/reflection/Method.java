@@ -17,7 +17,7 @@ public class Method extends BaseItem {
     }
 
     public Method(java.lang.reflect.Constructor<?> constructor,  ClazzPool clazzPool) {
-        super(constructor.getName(), clazzPool);
+        super(constructor.getDeclaringClass().getSimpleName(), clazzPool);
         setConstructor(constructor);
         extractConstructorInfo();
     }

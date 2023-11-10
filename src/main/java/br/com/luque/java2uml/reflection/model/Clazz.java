@@ -1,4 +1,6 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
+
+import br.com.luque.java2uml.ClazzPool;
 
 import java.lang.reflect.Modifier;
 import java.util.Objects;
@@ -29,4 +31,6 @@ public abstract class Clazz extends BaseItem {
     public void setInterface(boolean interface_) {
         this.interface_ = interface_;
     }
+
+    public void extractClassInfo() {}
 }

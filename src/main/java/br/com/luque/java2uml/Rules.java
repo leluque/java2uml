@@ -1,4 +1,4 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml;
 
 import java.util.HashSet;
 import java.util.List;
@@ -54,15 +54,15 @@ public class Rules {
         return ignoreClasses;
     }
 
-    public boolean includes(Class<?> class_) {
+    public boolean includes(Class<?> originalClass) {
         return
                 (
-                    packages.stream().anyMatch(p -> class_.getPackageName().startsWith(p)) ||
-                    classes.stream().anyMatch(c -> class_.getName().equals(c))
+                    packages.stream().anyMatch(p -> originalClass.getPackageName().startsWith(p)) ||
+                    classes.stream().anyMatch(c -> originalClass.getName().equals(c))
                 ) &&
                 (
-                    ignorePackages.stream().noneMatch(p -> class_.getPackageName().startsWith(p)) &&
-                    !ignoreClasses.stream().noneMatch(c -> class_.getName().equals(c))
+                    ignorePackages.stream().noneMatch(p -> originalClass.getPackageName().startsWith(p)) &&
+                    ignoreClasses.stream().noneMatch(c -> originalClass.getName().equals(c))
                 );
     }
 }

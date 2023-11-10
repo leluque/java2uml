@@ -1,4 +1,4 @@
-package br.com.luque.java2uml.example.virtualdrive.domain;
+package br.com.luque.java2uml.example.virtualdriver.domain;
 
 import java.util.Collection;
 import java.util.LinkedList;

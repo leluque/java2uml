@@ -1,4 +1,6 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
+
+import br.com.luque.java2uml.ClazzPool;
 
 import java.util.stream.Stream;
 
@@ -10,7 +12,6 @@ public class ScopedClazz extends Clazz {
 
     public ScopedClazz(Class<?> originalClass, ClazzPool clazzPool) {
         super(originalClass, clazzPool);
-        extractClassInfo();
     }
 
     public static ScopedClazz newInterface(Class<?> originalClass, ClazzPool clazzPool) {
@@ -19,7 +20,7 @@ public class ScopedClazz extends Clazz {
         return clazz;
     }
 
-    private void extractClassInfo() {
+    public void extractClassInfo() {
         extractSuperclass();
         extractInterfaces();
         fields = Stream.of(getOriginalClass().getDeclaredFields()).map(f -> Field.from(this, f, getClazzPool())).toArray(Field[]::new);
@@ -37,6 +38,10 @@ public class ScopedClazz extends Clazz {
         interfaces = Stream.of(getOriginalClass().getInterfaces()).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
     }
 
+    public boolean hasInterfaces() {
+        return getInterfaces() != null;
+    }
+
     public Clazz[] getInterfaces() {
         return interfaces;
     }
@@ -50,7 +55,7 @@ public class ScopedClazz extends Clazz {
     }
 
     public Field[] getRelationshipFields() {
-        return Stream.of(fields).filter(f -> f instanceof RelationshipField).toArray(Field[]::new);
+        return Stream.of(fields).filter(f -> f instanceof RelationshipField).toArray(RelationshipField[]::new);
     }
 
     public Field[] getNonRelationshipFields() {
@@ -63,5 +68,9 @@ public class ScopedClazz extends Clazz {
 
     public Method[] getNonConstructorMethods() {
         return Stream.of(methods).filter(m -> !m.isConstructor()).toArray(Method[]::new);
+    }
+
+    public boolean hasConstructors() {
+        return getNonConstructorMethods().length > 0;
     }
 }

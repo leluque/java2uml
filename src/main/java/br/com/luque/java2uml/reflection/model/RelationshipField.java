@@ -1,5 +1,6 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
 
+import br.com.luque.java2uml.ClazzPool;
 import br.com.luque.java2uml.reflection.annotation.Aggregation;
 import br.com.luque.java2uml.reflection.annotation.Composition;
 import br.com.luque.java2uml.reflection.annotation.MappedBy;

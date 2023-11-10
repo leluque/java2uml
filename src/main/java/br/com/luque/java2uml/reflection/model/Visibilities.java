@@ -1,4 +1,4 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
 
 import java.lang.reflect.Modifier;
 

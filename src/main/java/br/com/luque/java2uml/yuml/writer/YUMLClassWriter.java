@@ -1,26 +1,32 @@
 package br.com.luque.java2uml.yuml.writer;
 
-import br.com.luque.java2uml.reflection.Clazz;
-import br.com.luque.java2uml.reflection.ScopedClazz;
+import br.com.luque.java2uml.reflection.model.Clazz;
+import br.com.luque.java2uml.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.reflection.model.UnscopedClazz;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ClassWriter {
-	private final AttributeWriter attributeWriter;
-	private final ConstructorWriter constructorWriter;
-	private final MethodWriter methodWriter;
+public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter {
+	private final YUMLAttributeWriter attributeWriter;
+	private final YUMLConstructorWriter constructorWriter;
+	private final YUMLMethodWriter methodWriter;
 	
-	public ClassWriter(AttributeWriter attributeWriter,
-					   ConstructorWriter constructorWriter,
-					   MethodWriter methodWriter) {
+	public YUMLClassWriter(YUMLAttributeWriter attributeWriter,
+						   YUMLConstructorWriter constructorWriter,
+						   YUMLMethodWriter methodWriter) {
 		this.attributeWriter = Objects.requireNonNull(attributeWriter);
 		this.constructorWriter = Objects.requireNonNull(constructorWriter);
 		this.methodWriter = Objects.requireNonNull(methodWriter);
 	}
 
+	@Override
 	public String getString(Clazz clazz) {
+		if(clazz instanceof UnscopedClazz) {
+			return "";
+		}
+
 		String result = "[";
 
 		if(clazz.isInterface()) {
@@ -37,8 +43,10 @@ public class ClassWriter {
 			result += "|";
 			result += Stream.of(scopedClazz.getNonRelationshipFields()).map(attributeWriter::getString).collect(Collectors.joining(";"));
 			result += "|";
-			result += Stream.of(scopedClazz.getConstructors()).map(constructorWriter::getString).collect(Collectors.joining(";"));
-			result += ";";
+			if(!scopedClazz.isInterface() && scopedClazz.hasConstructors()) {
+				result += Stream.of(scopedClazz.getConstructors()).map(constructorWriter::getString).collect(Collectors.joining(";"));
+				result += ";";
+			}
 			result += Stream.of(scopedClazz.getNonConstructorMethods()).map(methodWriter::getString).collect(Collectors.joining(";"));
 
 			if (result.charAt(result.length() - 1) == ';') {

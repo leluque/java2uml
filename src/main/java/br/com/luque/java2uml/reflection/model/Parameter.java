@@ -1,4 +1,6 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
+
+import br.com.luque.java2uml.ClazzPool;
 
 import java.util.Objects;
 

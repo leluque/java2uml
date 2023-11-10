@@ -1,4 +1,6 @@
-package br.com.luque.java2uml.reflection;
+package br.com.luque.java2uml.reflection.model;
+
+import br.com.luque.java2uml.ClazzPool;
 
 public class UnscopedClazz extends Clazz {
     public UnscopedClazz(Class<?> class_, ClazzPool clazzPool) {

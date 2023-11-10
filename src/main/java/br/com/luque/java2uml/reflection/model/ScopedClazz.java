@@ -29,13 +29,13 @@ public class ScopedClazz extends Clazz {
     }
 
     public void extractSuperclass() {
-        if(null != getOriginalClass().getSuperclass()) {
+        if(null != getOriginalClass().getSuperclass() && getClazzPool().getRules().includes(getOriginalClass().getSuperclass())) {
             superclass = getClazzPool().getFor(getOriginalClass().getSuperclass());
         }
     }
 
     public void extractInterfaces() {
-        interfaces = Stream.of(getOriginalClass().getInterfaces()).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
+        interfaces = Stream.of(getOriginalClass().getInterfaces()).filter(i -> getClazzPool().getRules().includes(i)).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
     }
 
     public boolean hasInterfaces() {

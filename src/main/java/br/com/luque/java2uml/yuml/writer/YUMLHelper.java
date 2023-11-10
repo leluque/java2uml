@@ -1,6 +1,6 @@
 package br.com.luque.java2uml.yuml.writer;
 
-import br.com.luque.java2uml.reflection.Visibilities;
+import br.com.luque.java2uml.reflection.model.Visibilities;
 
 public class YUMLHelper {
 	public static String getVisibilityText(Visibilities visibility) {

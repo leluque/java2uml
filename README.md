@@ -32,11 +32,12 @@ a class diagram.
 
 ```java
 // Example code using the yUML facade.
-String diagramText = YUML.generateDiagram("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
+String diagramText = YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
 
 // You can also use exclusion rules.
 YUML yUML = new YUML();
 yUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
 yUML.addClasses("java.lang.String", "java.util.ArrayList");
-yUML.ignoreClass("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
-String diagramText = YUML.generateDiagram();
+yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
+yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
+String diagramText = YUML.generateClassDiagram();

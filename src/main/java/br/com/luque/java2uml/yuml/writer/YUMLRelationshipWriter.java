@@ -35,7 +35,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 		}
 		String result = "";
 		for(Clazz interface_ : scopedClazz.getInterfaces()) {
-			result += "[" + scopedClazz.getName() + "]^-.-[" + interface_.getName() + "]";
+			result += "[" + interface_.getName() + "]^-.-[" + scopedClazz.getName() + "]";
 			result += "\n";
 		}
 		return result;
@@ -47,7 +47,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 			return "";
 		}
 		String result = "";
-		result += "[" + scopedClazz.getName() + "]^[" + scopedClazz.getSuperclass().getName() + "]";
+		result += "[" + scopedClazz.getSuperclass().getName() + "]^[" + scopedClazz.getName() + "]";
 		result += "\n";
 		return result;
 	}

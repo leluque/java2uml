@@ -23,26 +23,26 @@ public class Java2UML {
             clazzPool.getFor(originalClass);
         }
 
-        String result = "";
-        String relationshipResult = "";
+        StringBuilder result = new StringBuilder();
+        StringBuilder relationshipResult = new StringBuilder();
         for(Clazz clazz : clazzPool.getScopedClazzes()) {
             ScopedClazz scopedClazz = (ScopedClazz) clazz;
-            result += classWriter.getString(scopedClazz);
-            result += "\n";
+            result.append(classWriter.getString(scopedClazz));
+            result.append("\n");
 
             for(RelationshipField field : scopedClazz.getRelationshipFields()) {
                 if(field.isMappedBy() && field.getOtherSide() instanceof ScopedClazz otherSideScopedClazz) {
-                    relationshipResult += relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy()));
+                    relationshipResult.append(relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy())));
                 } else {
-                    relationshipResult += relationshipWriter.getString(field);
+                    relationshipResult.append(relationshipWriter.getString(field));
                 }
-                relationshipResult += "\n";
+                relationshipResult.append("\n");
             }
-            relationshipResult += relationshipWriter.getRealizationString(scopedClazz);
-            relationshipResult += relationshipWriter.getInheritanceString(scopedClazz);
+            relationshipResult.append(relationshipWriter.getRealizationString(scopedClazz));
+            relationshipResult.append(relationshipWriter.getInheritanceString(scopedClazz));
         }
 
-        result += "\n" + relationshipResult;
-        return result.trim();
+        result.append("\n").append(relationshipResult);
+        return result.toString().trim();
     }
 }

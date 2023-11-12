@@ -27,38 +27,40 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
 			return "";
 		}
 
-		String result = "[";
-		result += getFormattedClassName(clazz);
+		StringBuilder result = new StringBuilder("[");
+		result.append(getFormattedClassName(clazz));
 
 		if(clazz instanceof ScopedClazz scopedClazz) {
-			result += "|";
-			result += Stream.of(scopedClazz.getNonRelationshipFields()).map(attributeWriter::getString).collect(Collectors.joining(";"));
-			result += "|";
+			result.append("|");
+			result.append(Stream.of(scopedClazz.getNonRelationshipFields()).map(attributeWriter::getString).collect(Collectors.joining(";")));
+			result.append("|");
 			if(!scopedClazz.isInterface() && scopedClazz.hasConstructors()) {
-				result += Stream.of(scopedClazz.getConstructors()).map(constructorWriter::getString).collect(Collectors.joining(";"));
-				result += ";";
+				result.append(Stream.of(scopedClazz.getConstructors()).map(constructorWriter::getString).collect(Collectors.joining(";")));
+				result.append(";");
 			}
-			result += Stream.of(scopedClazz.getNonConstructorMethods()).map(methodWriter::getString).collect(Collectors.joining(";"));
+			result.append(Stream.of(scopedClazz.getNonConstructorMethods()).map(methodWriter::getString).collect(Collectors.joining(";")));
 
 			if (result.charAt(result.length() - 1) == ';') {
-				result = result.substring(0, result.length() - 1);
+				result.deleteCharAt(result.length() - 1);
 			}
 		}
-		result += "]";
-		return result;
+		result.append("]");
+		return result.toString();
 	}
 
 	public static String getFormattedClassName(Clazz clazz) {
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		if(clazz.isInterface()) {
-			result += "<<interface>>;";
+			result.append("<<interface>>;");
 		}
 
 		if(clazz.isAbstract()) {
-			result += "_" + clazz.getName() + "_";
+			result.append("_");
+			result.append(clazz.getName());
+			result.append("_");
 		} else {
-			result += clazz.getName();
+			result.append(clazz.getName());
 		}
-		return result;
+		return result.toString();
 	}
 }

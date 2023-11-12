@@ -11,4 +11,8 @@ public class YUMLHelper {
 			default -> "~";
 		};
 	}
+
+	public static String getStereotypeText(String stereotype) {
+		return String.format("⪡%s⪢", stereotype);
+	}
 }

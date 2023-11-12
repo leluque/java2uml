@@ -115,10 +115,10 @@ public class RelationshipField extends Field {
     private void extractRelationshipInfo() {
         if(isOneRelationship(getField(), getClazzPool())) {
             cardinality = Cardinalities.ONE;
-            otherSide = new ScopedClazz(getField().getType(), getClazzPool());
+            otherSide = getClazzPool().getFor(getField().getType());
         } else if (isArrayRelationship(getField(), getClazzPool())) {
             cardinality = Cardinalities.N;
-            otherSide = new ScopedClazz(getField().getType().getComponentType(), getClazzPool());
+            otherSide = getClazzPool().getFor(getField().getType().getComponentType());
         } else if (isCollectionRelationship(getField(), getClazzPool())) {
             cardinality = Cardinalities.N;
             ParameterizedType generics = (ParameterizedType) getField().getGenericType();
@@ -126,7 +126,7 @@ public class RelationshipField extends Field {
             for (Type typeArgument : typeArguments) {
                 if (typeArgument instanceof Class<?> originalClass
                         && getClazzPool().getRules().includes(originalClass)) {
-                    otherSide = new ScopedClazz(originalClass, getClazzPool());
+                    otherSide = getClazzPool().getFor(originalClass);
                     break;
                 }
             }

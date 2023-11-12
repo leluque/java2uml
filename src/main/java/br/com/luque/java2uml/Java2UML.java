@@ -31,8 +31,7 @@ public class Java2UML {
             result += "\n";
 
             for(RelationshipField field : scopedClazz.getRelationshipFields()) {
-                // TODO: check why clazzPool.getFor(field.getOtherSide().getOriginalClass()) is different of field.getOtherSide() in some cases.
-                if(field.isMappedBy() && clazzPool.getFor(field.getOtherSide().getOriginalClass()) instanceof ScopedClazz otherSideScopedClazz) {
+                if(field.isMappedBy() && field.getOtherSide() instanceof ScopedClazz otherSideScopedClazz) {
                     relationshipResult += relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy()));
                 } else {
                     relationshipResult += relationshipWriter.getString(field);

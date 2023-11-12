@@ -19,19 +19,19 @@ public class Java2UML {
         Class<?>[] classes = searcher.search();
 
         ClazzPool clazzPool = new ClazzPool(rules);
-        for(Class<?> originalClass : classes) {
+        for (Class<?> originalClass : classes) {
             clazzPool.getFor(originalClass);
         }
 
         StringBuilder result = new StringBuilder();
         StringBuilder relationshipResult = new StringBuilder();
-        for(Clazz clazz : clazzPool.getScopedClazzes()) {
+        for (Clazz clazz : clazzPool.getScopedClazzes()) {
             ScopedClazz scopedClazz = (ScopedClazz) clazz;
             result.append(classWriter.getString(scopedClazz));
             result.append("\n");
 
-            for(RelationshipField field : scopedClazz.getRelationshipFields()) {
-                if(field.isMappedBy() && field.getOtherSide() instanceof ScopedClazz otherSideScopedClazz) {
+            for (RelationshipField field : scopedClazz.getRelationshipFields()) {
+                if (field.isMappedBy() && field.getOtherSide() instanceof ScopedClazz otherSideScopedClazz) {
                     relationshipResult.append(relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy())));
                 } else {
                     relationshipResult.append(relationshipWriter.getString(field));

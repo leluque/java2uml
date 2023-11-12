@@ -5,6 +5,7 @@ import br.com.luque.java2uml.ClazzPool;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Field extends BaseItem {
     private java.lang.reflect.Field field;
     private Clazz clazz;
@@ -20,7 +21,7 @@ public class Field extends BaseItem {
     }
 
     public static Field from(Clazz clazz, java.lang.reflect.Field field, ClazzPool clazzPool) {
-        if(RelationshipField.isRelationship(field, clazzPool)) {
+        if (RelationshipField.isRelationship(field, clazzPool)) {
             return new RelationshipField(clazz, field, clazzPool);
         }
         return new Field(clazz, field, clazzPool);

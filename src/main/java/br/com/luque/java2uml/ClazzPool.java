@@ -8,9 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class ClazzPool {
-    private Rules rules;
-    private Map<Class<?>, Clazz> clazzMap;
+    private final Rules rules;
+    private final Map<Class<?>, Clazz> clazzMap;
 
     public ClazzPool(Rules rules) {
         this.rules = Objects.requireNonNull(rules);
@@ -22,15 +23,14 @@ public class ClazzPool {
         if (clazzMap.containsKey(originalClass)) {
             return clazzMap.get(originalClass);
         }
-        Clazz clazz = null;
+        Clazz clazz;
         if (originalClass.isInterface()) {
-            if(rules.includes(originalClass)) {
+            if (rules.includes(originalClass)) {
                 clazz = ScopedClazz.newInterface(originalClass, this);
             } else {
                 clazz = UnscopedClazz.newInterface(originalClass, this);
             }
-        }
-        else {
+        } else {
             if (rules.includes(originalClass)) {
                 clazz = new ScopedClazz(originalClass, this);
             } else {
@@ -48,7 +48,7 @@ public class ClazzPool {
     }
 
     public Clazz[] getClazzes() {
-        return clazzMap.values().toArray(new Clazz[clazzMap.size()]);
+        return clazzMap.values().toArray(new Clazz[0]);
     }
 
     public Clazz[] getScopedClazzes() {

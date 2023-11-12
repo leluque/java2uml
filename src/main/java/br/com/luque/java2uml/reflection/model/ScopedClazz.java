@@ -25,11 +25,11 @@ public class ScopedClazz extends Clazz {
         extractInterfaces();
         fields = Stream.of(getOriginalClass().getDeclaredFields()).map(f -> Field.from(this, f, getClazzPool())).toArray(Field[]::new);
         methods = Stream.concat(Stream.of(getOriginalClass().getDeclaredMethods()).map(m -> new Method(m, getClazzPool())),
-                Stream.of(getOriginalClass().getDeclaredConstructors()).map(m -> new Method(m, getClazzPool()))).toArray(Method[]::new);
+            Stream.of(getOriginalClass().getDeclaredConstructors()).map(m -> new Method(m, getClazzPool()))).toArray(Method[]::new);
     }
 
     public void extractSuperclass() {
-        if(null != getOriginalClass().getSuperclass() && getClazzPool().getRules().includes(getOriginalClass().getSuperclass())) {
+        if (null != getOriginalClass().getSuperclass() && getClazzPool().getRules().includes(getOriginalClass().getSuperclass())) {
             superclass = getClazzPool().getFor(getOriginalClass().getSuperclass());
         }
     }
@@ -59,7 +59,7 @@ public class ScopedClazz extends Clazz {
     }
 
     public RelationshipField getRelationshipField(String fieldName) {
-        if(null == fields) {
+        if (null == fields) {
             return null;
         }
         return (RelationshipField) Stream.of(fields).filter(f -> f instanceof RelationshipField).filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);

@@ -6,8 +6,8 @@ import java.lang.reflect.Modifier;
 import java.util.Objects;
 
 public abstract class Clazz extends BaseItem {
-    private Class<?> originalClass;
-    private boolean abstract_;
+    private final Class<?> originalClass;
+    private final boolean abstract_;
     private boolean interface_;
 
     public Clazz(Class<?> originalClass, ClazzPool clazzPool) {
@@ -32,5 +32,6 @@ public abstract class Clazz extends BaseItem {
         this.interface_ = interface_;
     }
 
-    public void extractClassInfo() {}
+    public void extractClassInfo() {
+    }
 }

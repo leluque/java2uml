@@ -3,8 +3,9 @@ package br.com.luque.java2uml.yuml.writer;
 import br.com.luque.java2uml.Java2UML;
 import br.com.luque.java2uml.Rules;
 
+@SuppressWarnings("unused")
 public class YUML {
-    private Rules rules;
+    private final Rules rules;
 
     public YUML() {
         this.rules = new Rules();
@@ -28,13 +29,13 @@ public class YUML {
 
     private String generateClassDiagram(Rules rules) {
         return Java2UML.generateClassDiagramUsing(
-                new YUMLClassWriter(
-                        new YUMLAttributeWriter(),
-                        new YUMLConstructorWriter(),
-                        new YUMLMethodWriter()
-                ),
-                new YUMLRelationshipWriter(),
-                rules
+            new YUMLClassWriter(
+                new YUMLAttributeWriter(),
+                new YUMLConstructorWriter(),
+                new YUMLMethodWriter()
+            ),
+            new YUMLRelationshipWriter(),
+            rules
         );
     }
 

@@ -5,6 +5,7 @@ import br.com.luque.java2uml.ClazzPool;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 public class Method extends BaseItem {
     private java.lang.reflect.Method method;
     private java.lang.reflect.Constructor<?> constructor;
@@ -18,7 +19,7 @@ public class Method extends BaseItem {
         extractMethodInfo();
     }
 
-    public Method(java.lang.reflect.Constructor<?> constructor,  ClazzPool clazzPool) {
+    public Method(java.lang.reflect.Constructor<?> constructor, ClazzPool clazzPool) {
         super(constructor.getDeclaringClass().getSimpleName(), clazzPool);
         setConstructor(constructor);
         extractConstructorInfo();

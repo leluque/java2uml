@@ -17,13 +17,13 @@ public class ClasspathSearcher {
     }
 
     public Class<?>[] search() {
-         return searchClasses();
+        return searchClasses();
     }
 
     private Class<?>[] searchClasses() {
         Set<Class<?>> classes = new HashSet<>();
 
-        for(String qualifiedClassName : rules.getClasses()) {
+        for (String qualifiedClassName : rules.getClasses()) {
             try {
                 classes.add(Class.forName(qualifiedClassName));
             } catch (ClassNotFoundException e) {
@@ -31,10 +31,10 @@ public class ClasspathSearcher {
             }
         }
 
-        for(String packageName : rules.getPackages()) {
+        for (String packageName : rules.getPackages()) {
             try {
                 Enumeration<URL> resources = Thread.currentThread().getContextClassLoader().getResources(packageName.replace('.', '/'));
-                while(resources.hasMoreElements()) {
+                while (resources.hasMoreElements()) {
                     URL resource = resources.nextElement();
 
                     classes.addAll(searchClassesRecursively(new File(resource.getPath()), packageName));
@@ -49,26 +49,24 @@ public class ClasspathSearcher {
 
     private Collection<Class<?>> searchClassesRecursively(File folder, String packageName) {
         Objects.requireNonNull(folder);
-        if(!folder.exists()) {
+        if (!folder.exists()) {
             return Collections.emptyList();
-        } else if(!folder.isDirectory()) {
+        } else if (!folder.isDirectory()) {
             throw new IllegalArgumentException("The folder must be a directory!");
-        } else if(null == folder.listFiles()) {
-            return Collections.emptyList();
         }
 
         Set<Class<?>> classes = new HashSet<>();
-        for(File child : folder.listFiles()) {
-            if(child.isDirectory()) {
-                if(rules.getIgnorePackages().contains(packageName + "." + child.getName())) {
+        for (File child : Objects.requireNonNull(folder.listFiles())) {
+            if (child.isDirectory()) {
+                if (rules.getIgnorePackages().contains(packageName + "." + child.getName())) {
                     continue;
                 }
 
                 classes.addAll(searchClassesRecursively(child, packageName + "." + child.getName()));
-            } else if(child.getName().endsWith(".class")) {
+            } else if (child.getName().endsWith(".class")) {
                 String qualifiedClassName = packageName + "." + child.getName().substring(0, child.getName().length() - ".class".length());
 
-                if(rules.getIgnoreClasses().contains(packageName + "." + qualifiedClassName)) {
+                if (rules.getIgnoreClasses().contains(packageName + "." + qualifiedClassName)) {
                     continue;
                 }
 

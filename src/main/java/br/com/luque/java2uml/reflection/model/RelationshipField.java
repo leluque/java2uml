@@ -14,6 +14,7 @@ public class RelationshipField extends Field {
     public enum Cardinalities {
         ONE, N
     }
+
     private Cardinalities cardinality;
 
     public enum Variations {
@@ -67,7 +68,7 @@ public class RelationshipField extends Field {
     }
 
     public static boolean isRelationship(java.lang.reflect.Field field, ClazzPool clazzPool) {
-        if(isOneRelationship(field, clazzPool)) {
+        if (isOneRelationship(field, clazzPool)) {
             return true;
         }
         if (isArrayRelationship(field, clazzPool)) {
@@ -82,18 +83,18 @@ public class RelationshipField extends Field {
 
     private static boolean isArrayRelationship(java.lang.reflect.Field field, ClazzPool clazzPool) {
         return field.getType().isArray()
-                && clazzPool.getRules().includes(field.getType().getComponentType());
+            && clazzPool.getRules().includes(field.getType().getComponentType());
     }
 
     private static boolean isCollectionRelationship(java.lang.reflect.Field field, ClazzPool clazzPool) {
-        if(!field.getType().getPackageName().startsWith("java.util")) {
+        if (!field.getType().getPackageName().startsWith("java.util")) {
             return false;
         }
         ParameterizedType generics = (ParameterizedType) field.getGenericType();
         Type[] typeArguments = generics.getActualTypeArguments();
         for (Type typeArgument : typeArguments) {
             if (typeArgument instanceof Class<?> originalClass
-                    && clazzPool.getRules().includes(originalClass)) {
+                && clazzPool.getRules().includes(originalClass)) {
                 return true;
             }
         }
@@ -101,7 +102,7 @@ public class RelationshipField extends Field {
     }
 
     private void extractRelationshipInfo() {
-        if(isOneRelationship(getField(), getClazzPool())) {
+        if (isOneRelationship(getField(), getClazzPool())) {
             cardinality = Cardinalities.ONE;
             otherSide = getClazzPool().getFor(getField().getType());
         } else if (isArrayRelationship(getField(), getClazzPool())) {
@@ -113,7 +114,7 @@ public class RelationshipField extends Field {
             Type[] typeArguments = generics.getActualTypeArguments();
             for (Type typeArgument : typeArguments) {
                 if (typeArgument instanceof Class<?> originalClass
-                        && getClazzPool().getRules().includes(originalClass)) {
+                    && getClazzPool().getRules().includes(originalClass)) {
                     otherSide = getClazzPool().getFor(originalClass);
                     break;
                 }
@@ -121,17 +122,17 @@ public class RelationshipField extends Field {
         }
 
         MappedBy mappedByAnnotation = getField().getAnnotation(MappedBy.class);
-        if(null != mappedByAnnotation) {
+        if (null != mappedByAnnotation) {
             mappedBy = mappedByAnnotation.value();
         }
 
         setVariation(Variations.ASSOCIATION);
         Aggregation aggregationAnnotation = getField().getAnnotation(Aggregation.class);
-        if(null != aggregationAnnotation) {
+        if (null != aggregationAnnotation) {
             setVariation(Variations.AGGREGATION);
         }
         Composition compositionAnnotation = getField().getAnnotation(Composition.class);
-        if(null != compositionAnnotation) {
+        if (null != compositionAnnotation) {
             setVariation(Variations.COMPOSITION);
         }
     }

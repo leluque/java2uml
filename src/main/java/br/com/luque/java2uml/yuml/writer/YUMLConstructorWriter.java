@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class YUMLConstructorWriter implements ConstructorWriter {
-	public String getString(Method method) {
-		Objects.requireNonNull(method);
+    public String getString(Method method) {
+        Objects.requireNonNull(method);
 
-		return YUMLHelper
-				.getVisibilityText(method.getVisibility()) + YUMLHelper.getStereotypeText("create") + method.getName() + "(" + Stream.of(method.getParameters()).map(p -> String.format("%s:%s", p.getName(), p.getType().getName())).collect(Collectors.joining(",")) + ")";
-	}
+        return YUMLHelper
+            .getVisibilityText(method.getVisibility()) + YUMLHelper.getStereotypeText("create") + method.getName() + "(" + Stream.of(method.getParameters()).map(p -> String.format("%s:%s", p.getName(), p.getType().getName())).collect(Collectors.joining(",")) + ")";
+    }
 }

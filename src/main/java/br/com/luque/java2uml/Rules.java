@@ -1,15 +1,15 @@
 package br.com.luque.java2uml;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class Rules {
-    private Set<String> packages;
-    private Set<String> classes;
-    private Set<String> ignorePackages;
-    private Set<String> ignoreClasses;
+    private final Set<String> packages;
+    private final Set<String> classes;
+    private final Set<String> ignorePackages;
+    private final Set<String> ignoreClasses;
 
     public Rules() {
         this.packages = new HashSet<>();
@@ -20,22 +20,22 @@ public class Rules {
 
     public void addPackages(String... packagesName) {
         Objects.requireNonNull(packagesName);
-        this.packages.addAll(List.of(packagesName).stream().filter(p -> !p.isEmpty()).toList());
+        this.packages.addAll(Stream.of(packagesName).filter(p -> !p.isEmpty()).toList());
     }
 
     public void addClasses(String... classesName) {
         Objects.requireNonNull(classesName);
-        this.classes.addAll(List.of(classesName).stream().filter(c -> !c.isEmpty()).toList());
+        this.classes.addAll(Stream.of(classesName).filter(c -> !c.isEmpty()).toList());
     }
 
     public void ignorePackages(String... packagesName) {
         Objects.requireNonNull(packagesName);
-        this.ignorePackages.addAll(List.of(packagesName).stream().filter(p -> !p.isEmpty()).toList());
+        this.ignorePackages.addAll(Stream.of(packagesName).filter(p -> !p.isEmpty()).toList());
     }
 
     public void ignoreClasses(String... classesName) {
         Objects.requireNonNull(classesName);
-        this.ignoreClasses.addAll(List.of(classesName).stream().filter(c -> !c.isEmpty()).toList());
+        this.ignoreClasses.addAll(Stream.of(classesName).filter(c -> !c.isEmpty()).toList());
     }
 
     public Set<String> getPackages() {
@@ -56,13 +56,13 @@ public class Rules {
 
     public boolean includes(Class<?> originalClass) {
         return
-                (
-                    packages.stream().anyMatch(p -> originalClass.getPackageName().startsWith(p)) ||
+            (
+                packages.stream().anyMatch(p -> originalClass.getPackageName().startsWith(p)) ||
                     classes.stream().anyMatch(c -> originalClass.getName().equals(c))
-                ) &&
+            ) &&
                 (
                     ignorePackages.stream().noneMatch(p -> originalClass.getPackageName().startsWith(p)) &&
-                    ignoreClasses.stream().noneMatch(c -> originalClass.getName().equals(c))
+                        ignoreClasses.stream().noneMatch(c -> originalClass.getName().equals(c))
                 );
     }
 }

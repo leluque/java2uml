@@ -12,35 +12,38 @@ in the future, such as PlantUML.
 ## How it works
 
 Given a set of packages and exclusion rules, Java2UML will recursively search for all classes in those packages and
-generate a yUML class diagram code. This code can then be used to generate a visual class diagram using the 
+generate a yUML class diagram code. This code can then be used to generate a visual class diagram using the
 [yUML](https://yuml.me) tool.
 
 ## Getting Started
 
 ### Prerequisites
+
 - Java 17 or higher
 - A Java IDE (e.g., IntelliJ IDEA, Eclipse)
 
 ### Installation
+
 1. Clone the repository.
 2. Import the project into your Java IDE.
 4. Build and run the project.
 
 ## Usage
+
 To use Java2UML, simply pass a set of packages and exclusion rules you wish to generate the textual representation for
 a class diagram.
 
 ```java
 // Example code using the yUML facade.
-String diagramText = YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
+String diagramText=YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
 
 // You can also use exclusion rules.
-YUML yUML = new YUML(); // Facade
-yUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
-yUML.addClasses("java.lang.String", "java.util.ArrayList");
-yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
-yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
-String diagramText = YUML.generateClassDiagram();
+    YUML yUML=new YUML(); // Facade
+    yUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
+    yUML.addClasses("java.lang.String","java.util.ArrayList");
+    yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
+    yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
+    String diagramText=YUML.generateClassDiagram();
 ```
 
 ## Room for improvement

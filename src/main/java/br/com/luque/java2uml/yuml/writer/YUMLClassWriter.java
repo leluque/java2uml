@@ -28,16 +28,7 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
 		}
 
 		String result = "[";
-
-		if(clazz.isInterface()) {
-			result += "<<interface>>;";
-		}
-
-		if(clazz.isAbstract()) {
-			result += "_" + clazz.getName() + "_";
-		} else {
-			result += clazz.getName();
-		}
+		result += getFormattedClassName(clazz);
 
 		if(clazz instanceof ScopedClazz scopedClazz) {
 			result += "|";
@@ -54,6 +45,20 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
 			}
 		}
 		result += "]";
+		return result;
+	}
+
+	public static String getFormattedClassName(Clazz clazz) {
+		String result = "";
+		if(clazz.isInterface()) {
+			result += "<<interface>>;";
+		}
+
+		if(clazz.isAbstract()) {
+			result += "_" + clazz.getName() + "_";
+		} else {
+			result += clazz.getName();
+		}
 		return result;
 	}
 }

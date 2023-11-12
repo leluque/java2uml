@@ -10,7 +10,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 	public String getString(RelationshipField field) {
 		Objects.requireNonNull(field);
 		String result = "[";
-		result += field.getClazz().getName();
+		result += YUMLClassWriter.getFormattedClassName(field.getClazz());
 		result += "]";
 		if(field.isAggregation()) {
 			result += "<>";
@@ -23,7 +23,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 		};
 
 		result += "[";
-		result += field.getOtherSide().getName();
+		result += YUMLClassWriter.getFormattedClassName(field.getOtherSide());
 		result += "]";
 		return result;
 	}
@@ -35,7 +35,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 		}
 		String result = "";
 		for(Clazz interface_ : scopedClazz.getInterfaces()) {
-			result += "[" + interface_.getName() + "]^-.-[" + scopedClazz.getName() + "]";
+			result += "[" + YUMLClassWriter.getFormattedClassName(interface_) + "]^-.-[" + YUMLClassWriter.getFormattedClassName(scopedClazz) + "]";
 			result += "\n";
 		}
 		return result;
@@ -47,7 +47,7 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 			return "";
 		}
 		String result = "";
-		result += "[" + scopedClazz.getSuperclass().getName() + "]^[" + scopedClazz.getName() + "]";
+		result += "[" + YUMLClassWriter.getFormattedClassName(scopedClazz.getSuperclass()) + "]^[" + YUMLClassWriter.getFormattedClassName(scopedClazz) + "]";
 		result += "\n";
 		return result;
 	}

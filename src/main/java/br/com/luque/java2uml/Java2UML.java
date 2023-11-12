@@ -33,13 +33,12 @@ public class Java2UML {
             for(RelationshipField field : (RelationshipField[]) scopedClazz.getRelationshipFields()) {
                 relationshipResult += relationshipWriter.getString(field);
                 relationshipResult += "\n";
-                relationshipResult += relationshipWriter.getRealizationString(scopedClazz);
-                relationshipResult += "\n";
-                relationshipResult += relationshipWriter.getInheritanceString(scopedClazz);
             }
+            relationshipResult += relationshipWriter.getRealizationString(scopedClazz);
+            relationshipResult += relationshipWriter.getInheritanceString(scopedClazz);
         }
 
         result += "\n" + relationshipResult;
-        return result;
+        return result.trim();
     }
 }

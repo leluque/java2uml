@@ -42,6 +42,7 @@ public class ClazzPool {
         return clazzMap.get(originalClass);
     }
 
+
     public Rules getRules() {
         return rules;
     }

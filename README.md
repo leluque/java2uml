@@ -35,9 +35,17 @@ a class diagram.
 String diagramText = YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
 
 // You can also use exclusion rules.
-YUML yUML = new YUML();
+YUML yUML = new YUML(); // Facade
 yUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain", "com.anotherpackage");
 yUML.addClasses("java.lang.String", "java.util.ArrayList");
 yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
 yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
 String diagramText = YUML.generateClassDiagram();
+
+## Room for improvement
+
+- [ ] Add unit tests.
+- [ ] Add support for other diagram tools (e.g., PlantUML).
+- [ ] Add support for other diagram types (e.g., object diagrams).
+- [ ] Generate diagram images directly from the tool.
+- [ ] Support execution as maven plugin to generate diagrams during build.

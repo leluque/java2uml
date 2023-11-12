@@ -41,6 +41,7 @@ yUML.addClasses("java.lang.String", "java.util.ArrayList");
 yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
 yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
 String diagramText = YUML.generateClassDiagram();
+```
 
 ## Room for improvement
 

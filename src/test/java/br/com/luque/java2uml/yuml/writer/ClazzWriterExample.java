@@ -1,6 +1,6 @@
 package br.com.luque.java2uml.yuml.writer;
 
-public class ClazzWriterTest {
+public class ClazzWriterExample {
 
     public static void main(String[] args) {
 

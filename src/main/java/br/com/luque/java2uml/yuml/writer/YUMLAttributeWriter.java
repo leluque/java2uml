@@ -12,10 +12,6 @@ public class YUMLAttributeWriter implements br.com.luque.java2uml.writer.Attribu
 			throw new IllegalArgumentException("This writer is not for relationship fields.");
 		}
 
-		String result = YUMLHelper.getVisibilityText(field.getVisibility());
-		result += field.getName();
-		result += ":";
-		result += field.getType().getName();
-		return result;
+		return YUMLHelper.getVisibilityText(field.getVisibility()) + field.getName() + ":" + field.getType().getName();
 	}
 }

@@ -9,14 +9,15 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class RelationshipField extends Field {
     public enum Cardinalities {
-        ONE, N;
+        ONE, N
     }
     private Cardinalities cardinality;
 
     public enum Variations {
-        ASSOCIATION, AGGREGATION, COMPOSITION;
+        ASSOCIATION, AGGREGATION, COMPOSITION
     }
 
     private Variations variation;
@@ -33,10 +34,6 @@ public class RelationshipField extends Field {
         return cardinality;
     }
 
-    public void setCardinality(Cardinalities cardinality) {
-        this.cardinality = Objects.requireNonNull(cardinality);
-    }
-
     public Variations getVariation() {
         return variation;
     }
@@ -49,16 +46,8 @@ public class RelationshipField extends Field {
         return otherSide;
     }
 
-    public void setOtherSide(Clazz otherSide) {
-        this.otherSide = Objects.requireNonNull(otherSide);
-    }
-
     public String getMappedBy() {
         return mappedBy;
-    }
-
-    public void setMappedBy(String mappedBy) {
-        this.mappedBy = mappedBy;
     }
 
     public boolean isMappedBy() {
@@ -78,7 +67,6 @@ public class RelationshipField extends Field {
     }
 
     public static boolean isRelationship(java.lang.reflect.Field field, ClazzPool clazzPool) {
-        Class<?> type = field.getType();
         if(isOneRelationship(field, clazzPool)) {
             return true;
         }

@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.RelationshipWriter {
 
-	private Set<RelationshipField> alreadyProcessedRelationships = new HashSet<>();
+	private final Set<RelationshipField> alreadyProcessedRelationships = new HashSet<>();
 
 	public String getString(RelationshipField field) {
 		return this.getString(field, null);
@@ -22,31 +22,31 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 			return "";
 		}
 
-		String result = "[";
-		result += YUMLClassWriter.getFormattedClassName(field.getClazz());
-		result += "]";
+		var result = new StringBuilder("[");
+		result.append(YUMLClassWriter.getFormattedClassName(field.getClazz()));
+		result.append("]");
 		if(null != otherSide) {
 			alreadyProcessedRelationships.add(otherSide);
 
-			result += switch (otherSide.getCardinality()) {
+			result.append(switch (otherSide.getCardinality()) {
 				case ONE -> "1";
 				case N -> "*";
-			};
+			});
 		}
 		if(field.isAggregation()) {
-			result += "<>";
+			result.append("<>");
 		} else if(field.isComposition()) {
-			result += "++";
+			result.append("++");
 		}
-		result += switch(field.getCardinality()) {
+		result.append(switch(field.getCardinality()) {
 			case ONE -> "->1";
 			case N -> "->*";
-		};
+		});
 
-		result += "[";
-		result += YUMLClassWriter.getFormattedClassName(field.getOtherSide());
-		result += "]";
-		return result;
+		result.append("[");
+		result.append(YUMLClassWriter.getFormattedClassName(field.getOtherSide()));
+		result.append("]");
+		return result.toString();
 	}
 
 	public String getRealizationString(ScopedClazz scopedClazz) {
@@ -54,12 +54,15 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 		if(!scopedClazz.hasInterfaces()) {
 			return "";
 		}
-		String result = "";
+		var result = new StringBuilder();
 		for(Clazz interface_ : scopedClazz.getInterfaces()) {
-			result += "[" + YUMLClassWriter.getFormattedClassName(interface_) + "]^-.-[" + YUMLClassWriter.getFormattedClassName(scopedClazz) + "]";
-			result += "\n";
+			result.append("[");
+			result.append(YUMLClassWriter.getFormattedClassName(interface_));
+			result.append("]^-.-[");
+			result.append(YUMLClassWriter.getFormattedClassName(scopedClazz));
+			result.append("]\n");
 		}
-		return result;
+		return result.toString();
 	}
 
 	public String getInheritanceString(ScopedClazz scopedClazz) {
@@ -67,9 +70,10 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
 		if(!scopedClazz.hasSuperclass()) {
 			return "";
 		}
-		String result = "";
-		result += "[" + YUMLClassWriter.getFormattedClassName(scopedClazz.getSuperclass()) + "]^[" + YUMLClassWriter.getFormattedClassName(scopedClazz) + "]";
-		result += "\n";
-		return result;
+		return "[" +
+				YUMLClassWriter.getFormattedClassName(scopedClazz.getSuperclass()) +
+				"]^[" +
+				YUMLClassWriter.getFormattedClassName(scopedClazz) +
+				"]\n";
 	}
 }

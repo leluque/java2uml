@@ -10,13 +10,7 @@ public class YUMLMethodWriter implements br.com.luque.java2uml.writer.MethodWrit
 	public String getString(Method method) {
 		Objects.requireNonNull(method);
 
-		String result = YUMLHelper
-				.getVisibilityText(method.getVisibility());
-		result += method.getName();
-		result += "(";
-		result += Stream.of(method.getParameters()).map(p -> String.format("%s:%s", p.getName(), p.getType().getName())).collect(Collectors.joining(","));
-		result += "):";
-		result += method.getReturnType().getName();
-		return result;
+		return YUMLHelper
+				.getVisibilityText(method.getVisibility()) + method.getName() + "(" + Stream.of(method.getParameters()).map(p -> String.format("%s:%s", p.getName(), p.getType().getName())).collect(Collectors.joining(",")) + "):" + method.getReturnType().getName();
 	}
 }

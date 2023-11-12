@@ -61,6 +61,10 @@ public class RelationshipField extends Field {
         this.mappedBy = mappedBy;
     }
 
+    public boolean isMappedBy() {
+        return null != mappedBy;
+    }
+
     public boolean isAssociation() {
         return Variations.ASSOCIATION.equals(getVariation());
     }

@@ -4,14 +4,35 @@ import br.com.luque.java2uml.reflection.model.Clazz;
 import br.com.luque.java2uml.reflection.model.RelationshipField;
 import br.com.luque.java2uml.reflection.model.ScopedClazz;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.RelationshipWriter {
+
+	private Set<RelationshipField> alreadyProcessedRelationships = new HashSet<>();
+
 	public String getString(RelationshipField field) {
+		return this.getString(field, null);
+	}
+
+	public String getString(RelationshipField field, RelationshipField otherSide) {
 		Objects.requireNonNull(field);
+		if(alreadyProcessedRelationships.contains(field)) {
+			return "";
+		}
+
 		String result = "[";
 		result += YUMLClassWriter.getFormattedClassName(field.getClazz());
 		result += "]";
+		if(null != otherSide) {
+			alreadyProcessedRelationships.add(otherSide);
+
+			result += switch (otherSide.getCardinality()) {
+				case ONE -> "1";
+				case N -> "*";
+			};
+		}
 		if(field.isAggregation()) {
 			result += "<>";
 		} else if(field.isComposition()) {

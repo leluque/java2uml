@@ -54,8 +54,15 @@ public class ScopedClazz extends Clazz {
         return superclass;
     }
 
-    public Field[] getRelationshipFields() {
+    public RelationshipField[] getRelationshipFields() {
         return Stream.of(fields).filter(f -> f instanceof RelationshipField).toArray(RelationshipField[]::new);
+    }
+
+    public RelationshipField getRelationshipField(String fieldName) {
+        if(null == fields) {
+            return null;
+        }
+        return (RelationshipField) Stream.of(fields).filter(f -> f instanceof RelationshipField).filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
     }
 
     public Field[] getNonRelationshipFields() {

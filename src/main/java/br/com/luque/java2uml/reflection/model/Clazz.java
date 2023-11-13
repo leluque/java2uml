@@ -6,18 +6,19 @@ import java.lang.reflect.Modifier;
 import java.util.Objects;
 
 public abstract class Clazz extends BaseItem {
-    private final Class<?> originalClass;
+    private final Class<?> javaClass;
     private final boolean abstract_;
     private boolean interface_;
 
-    public Clazz(Class<?> originalClass, ClazzPool clazzPool) {
-        super(Objects.requireNonNull(originalClass).getSimpleName(), clazzPool);
-        this.originalClass = originalClass;
-        this.abstract_ = Modifier.isAbstract(originalClass.getModifiers());
+    public Clazz(Class<?> javaClass, ClazzPool clazzPool) {
+        super(Objects.requireNonNull(javaClass).getSimpleName(), clazzPool);
+        this.javaClass = javaClass;
+        this.abstract_ = Modifier.isAbstract(javaClass.getModifiers());
+        this.interface_ = javaClass.isInterface();
     }
 
-    public Class<?> getOriginalClass() {
-        return originalClass;
+    public Class<?> getJavaClass() {
+        return javaClass;
     }
 
     public boolean isAbstract() {

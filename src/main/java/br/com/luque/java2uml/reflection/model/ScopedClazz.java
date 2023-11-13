@@ -10,32 +10,26 @@ public class ScopedClazz extends Clazz {
     private Field[] fields;
     private Method[] methods;
 
-    public ScopedClazz(Class<?> originalClass, ClazzPool clazzPool) {
-        super(originalClass, clazzPool);
-    }
-
-    public static ScopedClazz newInterface(Class<?> originalClass, ClazzPool clazzPool) {
-        ScopedClazz clazz = new ScopedClazz(originalClass, clazzPool);
-        clazz.setInterface(true);
-        return clazz;
+    public ScopedClazz(Class<?> javaClass, ClazzPool clazzPool) {
+        super(javaClass, clazzPool);
     }
 
     public void extractClassInfo() {
         extractSuperclass();
         extractInterfaces();
-        fields = Stream.of(getOriginalClass().getDeclaredFields()).map(f -> Field.from(this, f, getClazzPool())).toArray(Field[]::new);
-        methods = Stream.concat(Stream.of(getOriginalClass().getDeclaredMethods()).map(m -> new Method(m, getClazzPool())),
-            Stream.of(getOriginalClass().getDeclaredConstructors()).map(m -> new Method(m, getClazzPool()))).toArray(Method[]::new);
+        fields = Stream.of(getJavaClass().getDeclaredFields()).map(f -> Field.from(this, f, getClazzPool())).toArray(Field[]::new);
+        methods = Stream.concat(Stream.of(getJavaClass().getDeclaredMethods()).map(m -> new Method(m, getClazzPool())),
+            Stream.of(getJavaClass().getDeclaredConstructors()).map(m -> new Method(m, getClazzPool()))).toArray(Method[]::new);
     }
 
     public void extractSuperclass() {
-        if (null != getOriginalClass().getSuperclass() && getClazzPool().getRules().includes(getOriginalClass().getSuperclass())) {
-            superclass = getClazzPool().getFor(getOriginalClass().getSuperclass());
+        if (null != getJavaClass().getSuperclass() && getClazzPool().getRules().includes(getJavaClass().getSuperclass())) {
+            superclass = getClazzPool().getFor(getJavaClass().getSuperclass());
         }
     }
 
     public void extractInterfaces() {
-        interfaces = Stream.of(getOriginalClass().getInterfaces()).filter(i -> getClazzPool().getRules().includes(i)).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
+        interfaces = Stream.of(getJavaClass().getInterfaces()).filter(i -> getClazzPool().getRules().includes(i)).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
     }
 
     public boolean hasInterfaces() {

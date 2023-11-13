@@ -24,18 +24,10 @@ public class ClazzPool {
             return clazzMap.get(originalClass);
         }
         Clazz clazz;
-        if (originalClass.isInterface()) {
-            if (rules.includes(originalClass)) {
-                clazz = ScopedClazz.newInterface(originalClass, this);
-            } else {
-                clazz = UnscopedClazz.newInterface(originalClass, this);
-            }
+        if (rules.includes(originalClass)) {
+            clazz = new ScopedClazz(originalClass, this);
         } else {
-            if (rules.includes(originalClass)) {
-                clazz = new ScopedClazz(originalClass, this);
-            } else {
-                clazz = new UnscopedClazz(originalClass, this);
-            }
+            clazz = new UnscopedClazz(originalClass, this);
         }
         clazzMap.put(originalClass, clazz);
         clazz.extractClassInfo();

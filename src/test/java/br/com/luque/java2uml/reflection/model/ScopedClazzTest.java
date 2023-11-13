@@ -5,6 +5,7 @@ import br.com.luque.java2uml.Rules;
 import br.com.luque.java2uml.reflection.model.data.ClassWithOnlyCommonJavaTypes;
 import br.com.luque.java2uml.reflection.model.data.ClassWithOnlyRelationships;
 import br.com.luque.java2uml.reflection.model.data.EmptyClass;
+import br.com.luque.java2uml.reflection.model.data.MixedClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -132,4 +133,55 @@ public class ScopedClazzTest {
         Assertions.assertEquals(3, Stream.of(relationshipFields).filter(f -> f.getCardinality() == RelationshipField.Cardinalities.ONE).count());
     }
 
+    @Test
+    public void givenClassWithOnlyRelationships_whenNewScopedClazz_thenHasRelationshipsWithCorrectTypes() {
+        ClazzPool clazzPool = new ClazzPool(new Rules().addPackages("br.com.luque.java2uml.reflection.model.data"));
+        ScopedClazz clazz = new ScopedClazz(ClassWithOnlyRelationships.class, clazzPool);
+        clazz.extractClassInfo();
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field1").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyCommonJavaTypes.class), clazz.getRelationshipField("field2").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyCommonJavaTypes.class), clazz.getRelationshipField("field3").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyCommonJavaTypes.class), clazz.getRelationshipField("field4").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyCommonJavaTypes.class), clazz.getRelationshipField("field5").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyCommonJavaTypes.class), clazz.getRelationshipField("field6").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field7").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field8").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field9").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field10").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field11").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(EmptyClass.class), clazz.getRelationshipField("field12").orElseThrow().getOtherSide());
+        Assertions.assertEquals(clazzPool.getFor(ClassWithOnlyRelationships.class), clazz.getRelationshipField("field13").orElseThrow().getOtherSide());
+    }
+
+    @Test
+    public void givenMixedClass_whenNewScopedClazz_thenHasRelationshipFields() {
+        ClazzPool clazzPool = new ClazzPool(new Rules().addPackages("br.com.luque.java2uml.reflection.model.data"));
+        ScopedClazz clazz = new ScopedClazz(MixedClass.class, clazzPool);
+        clazz.extractClassInfo();
+        Assertions.assertEquals(13, clazz.countRelationshipFields());
+    }
+
+    @Test
+    public void givenMixedClass_whenNewScopedClazz_thenHasNonRelationshipFields() {
+        ClazzPool clazzPool = new ClazzPool(new Rules().addPackages("br.com.luque.java2uml.reflection.model.data"));
+        ScopedClazz clazz = new ScopedClazz(MixedClass.class, clazzPool);
+        clazz.extractClassInfo();
+        Assertions.assertEquals(8, clazz.countNonRelationshipFields());
+    }
+
+    @Test
+    public void givenMixedClass_whenNewScopedClazz_thenHas2Constructors() {
+        ClazzPool clazzPool = new ClazzPool(new Rules().addPackages("br.com.luque.java2uml.reflection.model.data"));
+        ScopedClazz clazz = new ScopedClazz(MixedClass.class, clazzPool);
+        clazz.extractClassInfo();
+        Assertions.assertEquals(2, clazz.countConstructors());
+    }
+
+    @Test
+    public void givenMixedClass_whenNewScopedClazz_thenHas45NonConstructorMethods() {
+        ClazzPool clazzPool = new ClazzPool(new Rules().addPackages("br.com.luque.java2uml.reflection.model.data"));
+        ScopedClazz clazz = new ScopedClazz(MixedClass.class, clazzPool);
+        clazz.extractClassInfo();
+        Assertions.assertEquals(45, clazz.countNonConstructorMethods());
+    }
 }

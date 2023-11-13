@@ -1,6 +1,7 @@
 package br.com.luque.java2uml.yuml.writer;
 
 import br.com.luque.java2uml.reflection.model.Clazz;
+import br.com.luque.java2uml.reflection.model.Method;
 import br.com.luque.java2uml.reflection.model.ScopedClazz;
 import br.com.luque.java2uml.reflection.model.UnscopedClazz;
 
@@ -12,6 +13,7 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
     private final YUMLAttributeWriter attributeWriter;
     private final YUMLConstructorWriter constructorWriter;
     private final YUMLMethodWriter methodWriter;
+    private boolean generateAccessors = false;
 
     public YUMLClassWriter(YUMLAttributeWriter attributeWriter,
                            YUMLConstructorWriter constructorWriter,
@@ -19,6 +21,11 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
         this.attributeWriter = Objects.requireNonNull(attributeWriter);
         this.constructorWriter = Objects.requireNonNull(constructorWriter);
         this.methodWriter = Objects.requireNonNull(methodWriter);
+    }
+
+    public YUMLClassWriter generateAccessors(boolean generateAccessors) {
+        this.generateAccessors = generateAccessors;
+        return this;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
                 result.append(Stream.of(scopedClazz.getConstructors()).map(constructorWriter::getString).collect(Collectors.joining(";")));
                 result.append(";");
             }
-            result.append(Stream.of(scopedClazz.getNonConstructorMethods()).map(methodWriter::getString).collect(Collectors.joining(";")));
+            result.append(Stream.of(scopedClazz.getNonConstructorMethods()).filter(this::handleAccessorsFilter).map(methodWriter::getString).collect(Collectors.joining(";")));
 
             if (result.charAt(result.length() - 1) == ';') {
                 result.deleteCharAt(result.length() - 1);
@@ -46,6 +53,12 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
         }
         result.append("]");
         return result.toString();
+    }
+
+    private static final String[] accessorsPrefix = {"set", "get", "is", "add"};
+
+    private boolean handleAccessorsFilter(Method m) {
+        return generateAccessors || (!generateAccessors && !Stream.of(accessorsPrefix).anyMatch(m.getName()::startsWith));
     }
 
     public static String getFormattedClassName(Clazz clazz) {
@@ -63,4 +76,5 @@ public class YUMLClassWriter implements br.com.luque.java2uml.writer.ClassWriter
         }
         return result.toString();
     }
+
 }

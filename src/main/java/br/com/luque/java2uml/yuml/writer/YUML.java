@@ -6,9 +6,25 @@ import br.com.luque.java2uml.Rules;
 @SuppressWarnings("unused")
 public class YUML {
     private final Rules rules;
+    private boolean generateAccessors = false;
 
     public YUML() {
+        this(false);
+    }
+
+    public YUML(boolean generateAccessors) {
+        this.generateAccessors = generateAccessors;
         this.rules = new Rules();
+    }
+
+    public YUML generateAccessors() {
+        this.generateAccessors = true;
+        return this;
+    }
+
+    public YUML doNotGenerateAccessors() {
+        this.generateAccessors = false;
+        return this;
     }
 
     public void addPackages(String... packagesName) {
@@ -33,7 +49,7 @@ public class YUML {
                 new YUMLAttributeWriter(),
                 new YUMLConstructorWriter(),
                 new YUMLMethodWriter()
-            ),
+            ).generateAccessors(generateAccessors),
             new YUMLRelationshipWriter(),
             rules
         );

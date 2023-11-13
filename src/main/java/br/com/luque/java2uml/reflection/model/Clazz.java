@@ -11,8 +11,8 @@ public abstract class Clazz extends BaseItem {
     private boolean interface_;
 
     public Clazz(Class<?> originalClass, ClazzPool clazzPool) {
-        super(originalClass.getSimpleName(), clazzPool);
-        this.originalClass = Objects.requireNonNull(originalClass);
+        super(Objects.requireNonNull(originalClass).getSimpleName(), clazzPool);
+        this.originalClass = originalClass;
         this.abstract_ = Modifier.isAbstract(getOriginalClass().getModifiers());
     }
 

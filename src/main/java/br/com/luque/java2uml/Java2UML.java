@@ -40,6 +40,7 @@ public class Java2UML {
             }
             relationshipResult.append(relationshipWriter.getRealizationString(scopedClazz));
             relationshipResult.append(relationshipWriter.getInheritanceString(scopedClazz));
+            relationshipResult.append(relationshipWriter.getDependencyString(scopedClazz));
         }
 
         result.append("\n").append(relationshipResult);

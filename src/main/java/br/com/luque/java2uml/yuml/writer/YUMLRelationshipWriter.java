@@ -7,6 +7,7 @@ import br.com.luque.java2uml.reflection.model.ScopedClazz;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.RelationshipWriter {
 
@@ -75,5 +76,28 @@ public class YUMLRelationshipWriter implements br.com.luque.java2uml.writer.Rela
             "]^[" +
             YUMLClassWriter.getFormattedClassName(scopedClazz) +
             "]\n";
+    }
+
+    public String getDependencyString(ScopedClazz scopedClazz) {
+        Objects.requireNonNull(scopedClazz);
+        Clazz[] dependencies = scopedClazz.getDependencies();
+        if (null == dependencies || dependencies.length == 0) {
+            return "";
+        }
+
+        dependencies = Stream.of(dependencies).filter(
+            d -> !scopedClazz.hasAssociationOfAnyTypeWith(d)
+                && !scopedClazz.equals(d)
+        ).toArray(Clazz[]::new);
+
+        var result = new StringBuilder();
+        for (Clazz dependency : dependencies) {
+            result.append("[");
+            result.append(YUMLClassWriter.getFormattedClassName(scopedClazz));
+            result.append("]-.->[");
+            result.append(YUMLClassWriter.getFormattedClassName(dependency));
+            result.append("]\n");
+        }
+        return result.toString();
     }
 }

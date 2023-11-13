@@ -2,6 +2,8 @@ package br.com.luque.java2uml.reflection.model;
 
 import br.com.luque.java2uml.ClazzPool;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -59,6 +61,19 @@ public class Method extends BaseItem {
 
     public boolean isConstructor() {
         return returnType == null;
+    }
+
+    public boolean hasDependency() {
+        return getDependencies().length > 0;
+    }
+
+    public Clazz[] getDependencies() {
+        List<Clazz> dependencies = new ArrayList<>();
+        if (returnType != null && getClazzPool().getRules().includes(returnType.getJavaClass())) {
+            dependencies.add(returnType);
+        }
+        Stream.of(parameters).filter(p -> getClazzPool().getRules().includes(p.getType().getJavaClass())).forEach(p -> dependencies.add(p.getType()));
+        return dependencies.toArray(Clazz[]::new);
     }
 
     private void extractMethodInfo() {

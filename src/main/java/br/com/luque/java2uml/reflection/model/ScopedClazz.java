@@ -5,6 +5,7 @@ import br.com.luque.java2uml.ClazzPool;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+@SuppressWarnings("unused")
 public class ScopedClazz extends Clazz {
     private Clazz superclass;
     private Clazz[] interfaces;
@@ -108,4 +109,13 @@ public class ScopedClazz extends Clazz {
     public boolean hasConstructors() {
         return getNonConstructorMethods().length > 0;
     }
+
+    public Clazz[] getDependencies() {
+        return Stream.of(methods).flatMap(method -> Stream.of(method.getDependencies())).toArray(Clazz[]::new);
+    }
+
+    public boolean hasAssociationOfAnyTypeWith(Clazz other) {
+        return Stream.of(getRelationshipFields()).anyMatch(f -> f.getOtherSide().equals(other));
+    }
+
 }

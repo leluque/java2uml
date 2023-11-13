@@ -11,4 +11,6 @@ public interface RelationshipWriter {
     String getRealizationString(ScopedClazz scopedClazz);
 
     String getInheritanceString(ScopedClazz scopedClazz);
+
+    String getDependencyString(ScopedClazz scopedClazz);
 }

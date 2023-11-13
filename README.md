@@ -44,6 +44,9 @@ yUML.addClasses("java.lang.String","java.util.ArrayList");
 yUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
 yUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
 String diagramText=YUML.generateClassDiagram();
+    
+// You can avoid generating accessor methods creating an instance of YUML object using:
+YUML yUML=new YUML().doNotGenerateAccessors();
 ```
 
 ## Room for improvement

@@ -14,7 +14,7 @@ public class Field extends BaseItem {
     private boolean ztatic;
 
     protected Field(Clazz clazz, java.lang.reflect.Field field, ClazzPool clazzPool) {
-        super(field.getName(), clazzPool);
+        super(Objects.requireNonNull(field).getName(), clazzPool);
         setClazz(clazz);
         setField(field);
         extractFieldInfo();

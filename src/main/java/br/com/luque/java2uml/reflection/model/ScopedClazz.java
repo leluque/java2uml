@@ -2,6 +2,7 @@ package br.com.luque.java2uml.reflection.model;
 
 import br.com.luque.java2uml.ClazzPool;
 
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class ScopedClazz extends Clazz {
@@ -85,11 +86,11 @@ public class ScopedClazz extends Clazz {
         return Stream.of(fields).filter(f -> f instanceof RelationshipField).toArray(RelationshipField[]::new);
     }
 
-    public RelationshipField getRelationshipField(String fieldName) {
+    public Optional<RelationshipField> getRelationshipField(String fieldName) {
         if (null == fields) {
-            return null;
+            return Optional.empty();
         }
-        return (RelationshipField) Stream.of(fields).filter(f -> f instanceof RelationshipField).filter(f -> f.getName().equals(fieldName)).findFirst().orElse(null);
+        return Stream.of(fields).filter(f -> f instanceof RelationshipField).map(RelationshipField.class::cast).filter(f -> f.getName().equals(fieldName)).findFirst();
     }
 
     public Field[] getNonRelationshipFields() {

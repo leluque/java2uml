@@ -18,24 +18,28 @@ public class Rules {
         this.ignoreClasses = new HashSet<>();
     }
 
-    public void addPackages(String... packagesName) {
+    public Rules addPackages(String... packagesName) {
         Objects.requireNonNull(packagesName);
         this.packages.addAll(Stream.of(packagesName).filter(p -> !p.isEmpty()).toList());
+        return this;
     }
 
-    public void addClasses(String... classesName) {
+    public Rules addClasses(String... classesName) {
         Objects.requireNonNull(classesName);
         this.classes.addAll(Stream.of(classesName).filter(c -> !c.isEmpty()).toList());
+        return this;
     }
 
-    public void ignorePackages(String... packagesName) {
+    public Rules ignorePackages(String... packagesName) {
         Objects.requireNonNull(packagesName);
         this.ignorePackages.addAll(Stream.of(packagesName).filter(p -> !p.isEmpty()).toList());
+        return this;
     }
 
-    public void ignoreClasses(String... classesName) {
+    public Rules ignoreClasses(String... classesName) {
         Objects.requireNonNull(classesName);
         this.ignoreClasses.addAll(Stream.of(classesName).filter(c -> !c.isEmpty()).toList());
+        return this;
     }
 
     public Set<String> getPackages() {

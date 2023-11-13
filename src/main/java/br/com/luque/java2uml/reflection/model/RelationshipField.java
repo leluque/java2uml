@@ -89,12 +89,7 @@ public class RelationshipField extends Field {
             return false;
         }
 
-        // Handle the case of arrays of arrays ...
-        Class<?> componentType = field.getType().getComponentType();
-        while (componentType.isArray()) {
-            componentType = componentType.getComponentType();
-        }
-        return clazzPool.getRules().includes(componentType);
+        return clazzPool.getRules().includes(extractArrayType(field, clazzPool));
     }
 
     private static boolean isCollectionRelationship(java.lang.reflect.Field field, ClazzPool clazzPool) {
@@ -107,6 +102,19 @@ public class RelationshipField extends Field {
         }
 
         return extractScopedGenerics(field, clazzPool).length > 0;
+    }
+
+    private static Class<?> extractArrayType(java.lang.reflect.Field field, ClazzPool clazzPool) {
+        if (!field.getType().isArray()) {
+            return null;
+        }
+
+        // Handle the case of arrays of arrays ...
+        Class<?> componentType = field.getType().getComponentType();
+        while (componentType.isArray()) {
+            componentType = componentType.getComponentType();
+        }
+        return componentType;
     }
 
     private static Class<?>[] extractScopedGenerics(java.lang.reflect.Field field, ClazzPool clazzPool) {
@@ -133,7 +141,7 @@ public class RelationshipField extends Field {
     private void extractRelationshipInfo() {
         if (isPureArrayRelationship(getField(), getClazzPool())) {
             cardinality = Cardinalities.N;
-            otherSide = getClazzPool().getFor(getField().getType().getComponentType());
+            otherSide = getClazzPool().getFor(extractArrayType(getField(), getClazzPool()));
         } else if (isGenericRelationship(getField(), getClazzPool())) {
             cardinality = isCollectionRelationship(getField(), getClazzPool()) ? Cardinalities.N : Cardinalities.ONE;
 

@@ -13,7 +13,7 @@ public abstract class Clazz extends BaseItem {
     public Clazz(Class<?> originalClass, ClazzPool clazzPool) {
         super(Objects.requireNonNull(originalClass).getSimpleName(), clazzPool);
         this.originalClass = originalClass;
-        this.abstract_ = Modifier.isAbstract(getOriginalClass().getModifiers());
+        this.abstract_ = Modifier.isAbstract(originalClass.getModifiers());
     }
 
     public Class<?> getOriginalClass() {

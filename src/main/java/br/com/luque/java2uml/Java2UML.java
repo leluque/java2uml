@@ -32,7 +32,7 @@ public class Java2UML {
 
             for (RelationshipField field : scopedClazz.getRelationshipFields()) {
                 if (field.isMappedBy() && field.getOtherSide() instanceof ScopedClazz otherSideScopedClazz) {
-                    relationshipResult.append(relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy())));
+                    relationshipResult.append(relationshipWriter.getString(field, otherSideScopedClazz.getRelationshipField(field.getMappedBy()).orElseThrow()));
                 } else {
                     relationshipResult.append(relationshipWriter.getString(field));
                 }

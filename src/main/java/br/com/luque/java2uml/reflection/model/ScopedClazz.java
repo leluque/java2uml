@@ -28,16 +28,8 @@ public class ScopedClazz extends Clazz {
         }
     }
 
-    public void extractInterfaces() {
-        interfaces = Stream.of(getJavaClass().getInterfaces()).filter(i -> getClazzPool().getRules().includes(i)).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
-    }
-
-    public boolean hasInterfaces() {
-        return getInterfaces() != null;
-    }
-
-    public Clazz[] getInterfaces() {
-        return interfaces;
+    public int countSuperclasses() {
+        return hasSuperclass() ? 1 : 0;
     }
 
     public boolean hasSuperclass() {
@@ -46,6 +38,47 @@ public class ScopedClazz extends Clazz {
 
     public Clazz getSuperclass() {
         return superclass;
+    }
+
+
+    public int countInterfaces() {
+        return interfaces.length;
+    }
+
+    public void extractInterfaces() {
+        interfaces = Stream.of(getJavaClass().getInterfaces()).filter(i -> getClazzPool().getRules().includes(i)).map(i -> getClazzPool().getFor(i)).toArray(Clazz[]::new);
+    }
+
+    public boolean hasInterfaces() {
+        return getInterfaces() != null && getInterfaces().length > 0;
+    }
+
+    public Clazz[] getInterfaces() {
+        return interfaces;
+    }
+
+    public int countFields() {
+        return fields.length;
+    }
+
+    public int countMethods() {
+        return methods.length;
+    }
+
+    public int countConstructors() {
+        return Stream.of(methods).filter(Method::isConstructor).toArray().length;
+    }
+
+    public int countNonConstructorMethods() {
+        return Stream.of(methods).filter(m -> !m.isConstructor()).toArray().length;
+    }
+
+    public int countRelationshipFields() {
+        return Stream.of(fields).filter(f -> f instanceof RelationshipField).toArray().length;
+    }
+
+    public int countNonRelationshipFields() {
+        return Stream.of(fields).filter(f -> !(f instanceof RelationshipField)).toArray().length;
     }
 
     public RelationshipField[] getRelationshipFields() {

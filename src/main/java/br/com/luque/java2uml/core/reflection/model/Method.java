@@ -14,6 +14,8 @@ public class Method extends BaseItem {
     private Visibilities visibility;
     private Parameter[] parameters;
     private Clazz returnType;
+    private boolean static_;
+    private boolean abstract_;
 
     public Method(java.lang.reflect.Method method, ClazzPool clazzPool) {
         super(method.getName(), clazzPool);
@@ -63,6 +65,14 @@ public class Method extends BaseItem {
         return returnType == null;
     }
 
+    public boolean isStatic() {
+        return static_;
+    }
+
+    public boolean isAbstract() {
+        return abstract_;
+    }
+
     public boolean hasDependency() {
         return getDependencies().length > 0;
     }
@@ -80,6 +90,8 @@ public class Method extends BaseItem {
         this.visibility = Visibilities.fromModifiers(method.getModifiers());
         this.parameters = Stream.of(method.getParameters()).map(p -> new Parameter(p.getName(), getClazzPool().getFor(p.getType()), getClazzPool())).toArray(Parameter[]::new);
         this.returnType = getClazzPool().getFor(method.getReturnType());
+        this.static_ = java.lang.reflect.Modifier.isStatic(method.getModifiers());
+        this.abstract_ = java.lang.reflect.Modifier.isAbstract(method.getModifiers());
     }
 
     private void extractConstructorInfo() {

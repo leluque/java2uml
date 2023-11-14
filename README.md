@@ -53,9 +53,9 @@ YUML yUML=new YUML().doNotGenerateAccessors();
 
 ### PlantUML sequence diagram
 
-Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path to the jar file and run the following command:
+Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path to the jar file and br.com.luque.Main by the project main class and run the following command:
     
-    java -Xbootclasspath/a:javassist-3.29.2-GA.jar -javaagent:"path-to-java2uml-1.0.0.jar=br.com.luque" br.com.luque.Main
+    java -javaagent:"path-to-java2uml-1.0.0.jar=br.com.luque" br.com.luque.Main
 
 ## Room for improvement
 

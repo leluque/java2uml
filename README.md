@@ -30,6 +30,8 @@ generate a yUML class diagram code. This code can then be used to generate a vis
 
 ## Usage
 
+### YUML Class diagram 
+
 To use Java2UML, simply pass a set of packages and exclusion rules you wish to generate the textual representation for
 a class diagram.
 
@@ -48,6 +50,12 @@ String diagramText=YUML.generateClassDiagram();
 // You can avoid generating accessor methods creating an instance of YUML object using:
 YUML yUML=new YUML().doNotGenerateAccessors();
 ```
+
+### PlantUML sequence diagram
+
+Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path to the jar file and run the following command:
+    
+    java -Xbootclasspath/a:javassist-3.29.2-GA.jar -javaagent:"path-to-java2uml-1.0.0.jar=br.com.luque" br.com.luque.Main
 
 ## Room for improvement
 

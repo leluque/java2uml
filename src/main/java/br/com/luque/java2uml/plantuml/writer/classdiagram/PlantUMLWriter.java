@@ -24,6 +24,7 @@ public class PlantUMLWriter {
         }
 
         StringBuilder result = new StringBuilder();
+        result.append("@startuml\n");
         StringBuilder relationshipResult = new StringBuilder();
         for (Clazz clazz : clazzPool.getScopedClazzes()) {
             ScopedClazz scopedClazz = (ScopedClazz) clazz;
@@ -44,6 +45,7 @@ public class PlantUMLWriter {
         }
 
         result.append("\n").append(relationshipResult);
+        result.append("\n@enduml");
         return result.toString().trim();
     }
 }

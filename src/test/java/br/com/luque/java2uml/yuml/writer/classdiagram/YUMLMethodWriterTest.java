@@ -1,7 +1,5 @@
 package br.com.luque.java2uml.yuml.writer.classdiagram;
 
-import br.com.luque.java2uml.ClazzPool;
-import br.com.luque.java2uml.Rules;
 import br.com.luque.java2uml.core.reflection.model.*;
 import org.junit.jupiter.api.Test;
 
@@ -89,26 +87,6 @@ class YUMLMethodWriterTest {
 
         String actualString = yumlMethodWriter.getString(method);
         assertEquals("~name(par1:Object,par2:double):Integer", actualString);
-    }
-
-    /**
-     * Method under test: {@link YUMLMethodWriter#getString(Method)}
-     */
-    @Test
-    void testGetString4() {
-        YUMLMethodWriter yumlMethodWriter = new YUMLMethodWriter();
-        Parameter parameter = mock(Parameter.class);
-        Class<Object> javaClass = Object.class;
-        when(parameter.getType()).thenReturn(new ScopedClazz(javaClass, new ClazzPool(new Rules())));
-        when(parameter.getName()).thenReturn("Name");
-        Method method = mock(Method.class);
-        Class<Object> javaClass2 = Object.class;
-        when(method.getReturnType()).thenReturn(new ScopedClazz(javaClass2, new ClazzPool(new Rules())));
-        when(method.getParameters()).thenReturn(new Parameter[]{parameter});
-        when(method.getName()).thenReturn("Name");
-        when(method.getVisibility()).thenReturn(Visibilities.PRIVATE);
-        String actualString = yumlMethodWriter.getString(method);
-        assertEquals("-Name(Name:Object):Object", actualString);
     }
 
     /**

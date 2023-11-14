@@ -32,9 +32,7 @@ generate a yUML class diagram code. This code can then be used to generate a vis
 
 ### YUML Class diagram 
 
-To use Java2UML, simply pass a set of packages and exclusion rules you wish to generate the textual representation for
-a class diagram.
-
+To generate an YUML class diagram, simply pass a set of packages and exclusion rules you wish.
 ```java
 // Example code using the yUML facade.
 String diagramText=YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
@@ -50,8 +48,27 @@ String diagramText=YUML.generateClassDiagram();
 // You can avoid generating accessor methods creating an instance of YUML object using:
 YUML yUML=new YUML().doNotGenerateAccessors();
 ```
+### PlantUML class diagram
 
-### PlantUML sequence diagram
+To generate a PlantUML class diagram, simply pass a set of packages and exclusion rules you wish.
+
+```java
+// Example code using the PlantUML facade.
+String diagramText=PlantUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
+
+// You can also use exclusion rules.
+PlantUML plantUML=new PlantUML(); // Facade
+plantUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
+plantUML.addClasses("java.lang.String","java.util.ArrayList");
+plantUML.ignoreClasses("br.com.luque.java2uml.example.virtualdrive.domain.FileSystemItem");
+plantUML.ignorePackages("br.com.luque.java2uml.example.virtualdrive.dto");
+String diagramText=plantUML.generateClassDiagram();
+    
+// You can avoid generating accessor methods creating an instance of PlantUML object using:
+PlantUML plantUML=new PlantUML().doNotGenerateAccessors();
+```
+
+### PlantUML sequence diagram (under construction)
 
 Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path to the jar file and br.com.luque.Main by the project main class and run the following command:
     

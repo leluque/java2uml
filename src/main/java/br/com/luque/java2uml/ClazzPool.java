@@ -1,8 +1,8 @@
 package br.com.luque.java2uml;
 
-import br.com.luque.java2uml.reflection.model.Clazz;
-import br.com.luque.java2uml.reflection.model.ScopedClazz;
-import br.com.luque.java2uml.reflection.model.UnscopedClazz;
+import br.com.luque.java2uml.core.reflection.model.Clazz;
+import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.core.reflection.model.UnscopedClazz;
 
 import java.util.HashMap;
 import java.util.Map;

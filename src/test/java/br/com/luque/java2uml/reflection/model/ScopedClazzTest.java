@@ -2,6 +2,8 @@ package br.com.luque.java2uml.reflection.model;
 
 import br.com.luque.java2uml.ClazzPool;
 import br.com.luque.java2uml.Rules;
+import br.com.luque.java2uml.core.reflection.model.RelationshipField;
+import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
 import br.com.luque.java2uml.reflection.model.data.ClassWithOnlyCommonJavaTypes;
 import br.com.luque.java2uml.reflection.model.data.ClassWithOnlyRelationships;
 import br.com.luque.java2uml.reflection.model.data.EmptyClass;

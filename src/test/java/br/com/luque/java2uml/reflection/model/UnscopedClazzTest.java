@@ -2,6 +2,7 @@ package br.com.luque.java2uml.reflection.model;
 
 import br.com.luque.java2uml.ClazzPool;
 import br.com.luque.java2uml.Rules;
+import br.com.luque.java2uml.core.reflection.model.UnscopedClazz;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

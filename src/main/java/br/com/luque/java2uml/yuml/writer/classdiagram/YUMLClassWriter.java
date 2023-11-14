@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class YUMLClassWriter implements ClassWriter {
-    private final YUMLAttributeWriter attributeWriter;
+    private final YUMLFieldWriter attributeWriter;
     private final YUMLConstructorWriter constructorWriter;
     private final YUMLMethodWriter methodWriter;
     private boolean generateAccessors = false;
 
-    public YUMLClassWriter(YUMLAttributeWriter attributeWriter,
+    public YUMLClassWriter(YUMLFieldWriter attributeWriter,
                            YUMLConstructorWriter constructorWriter,
                            YUMLMethodWriter methodWriter) {
         this.attributeWriter = Objects.requireNonNull(attributeWriter);

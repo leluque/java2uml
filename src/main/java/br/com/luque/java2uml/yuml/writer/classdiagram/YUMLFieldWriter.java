@@ -2,11 +2,11 @@ package br.com.luque.java2uml.yuml.writer.classdiagram;
 
 import br.com.luque.java2uml.core.reflection.model.Field;
 import br.com.luque.java2uml.core.reflection.model.RelationshipField;
-import br.com.luque.java2uml.core.writer.classdiagram.AttributeWriter;
+import br.com.luque.java2uml.core.writer.classdiagram.FieldWriter;
 
 import java.util.Objects;
 
-public class YUMLAttributeWriter implements AttributeWriter {
+public class YUMLFieldWriter implements FieldWriter {
     public String getString(Field field) {
         Objects.requireNonNull(field);
         if (field instanceof RelationshipField) {

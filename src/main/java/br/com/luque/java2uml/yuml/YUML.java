@@ -46,7 +46,7 @@ public class YUML {
     private String generateClassDiagram(Rules rules) {
         return YUMLWriter.generateClassDiagramUsing(
             new YUMLClassWriter(
-                new YUMLAttributeWriter(),
+                new YUMLFieldWriter(),
                 new YUMLConstructorWriter(),
                 new YUMLMethodWriter()
             ).generateAccessors(generateAccessors),

@@ -1,6 +1,6 @@
 package br.com.luque.java2uml.yuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.*;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

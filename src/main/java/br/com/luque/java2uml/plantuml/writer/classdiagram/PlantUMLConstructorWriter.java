@@ -1,7 +1,7 @@
 package br.com.luque.java2uml.plantuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.Method;
-import br.com.luque.java2uml.core.writer.classdiagram.MethodWriter;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Method;
+import br.com.luque.java2uml.core.classdiagram.writer.MethodWriter;
 import br.com.luque.java2uml.yuml.writer.classdiagram.YUMLHelper;
 
 import java.util.Objects;

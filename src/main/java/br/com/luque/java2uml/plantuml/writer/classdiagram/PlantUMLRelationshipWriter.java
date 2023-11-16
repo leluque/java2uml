@@ -1,9 +1,9 @@
 package br.com.luque.java2uml.plantuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.Clazz;
-import br.com.luque.java2uml.core.reflection.model.RelationshipField;
-import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
-import br.com.luque.java2uml.core.writer.classdiagram.RelationshipWriter;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Clazz;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.RelationshipField;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.core.classdiagram.writer.RelationshipWriter;
 
 import java.util.HashSet;
 import java.util.Objects;

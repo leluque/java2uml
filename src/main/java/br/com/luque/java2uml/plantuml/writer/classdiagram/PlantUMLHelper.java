@@ -1,9 +1,9 @@
 package br.com.luque.java2uml.plantuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.Field;
-import br.com.luque.java2uml.core.reflection.model.Method;
-import br.com.luque.java2uml.core.reflection.model.RelationshipField;
-import br.com.luque.java2uml.core.reflection.model.Visibilities;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Field;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Method;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.RelationshipField;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Visibilities;
 
 public class PlantUMLHelper {
     public static final String STATIC_TEXT = "{static}";

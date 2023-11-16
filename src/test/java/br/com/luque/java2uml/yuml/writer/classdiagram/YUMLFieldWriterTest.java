@@ -1,9 +1,9 @@
 package br.com.luque.java2uml.yuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.Field;
-import br.com.luque.java2uml.core.reflection.model.RelationshipField;
-import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
-import br.com.luque.java2uml.core.reflection.model.Visibilities;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Field;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.RelationshipField;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Visibilities;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

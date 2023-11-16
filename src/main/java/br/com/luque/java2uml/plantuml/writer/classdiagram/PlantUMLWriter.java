@@ -1,11 +1,11 @@
 package br.com.luque.java2uml.plantuml.writer.classdiagram;
 
-import br.com.luque.java2uml.ClazzPool;
 import br.com.luque.java2uml.Rules;
-import br.com.luque.java2uml.core.classsearch.ClasspathSearcher;
-import br.com.luque.java2uml.core.reflection.model.Clazz;
-import br.com.luque.java2uml.core.reflection.model.RelationshipField;
-import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.core.classdiagram.classsearch.ClasspathSearcher;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Clazz;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.ClazzPool;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.RelationshipField;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.ScopedClazz;
 
 import java.util.Objects;
 

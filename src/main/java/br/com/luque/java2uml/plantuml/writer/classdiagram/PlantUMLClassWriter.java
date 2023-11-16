@@ -1,10 +1,10 @@
 package br.com.luque.java2uml.plantuml.writer.classdiagram;
 
-import br.com.luque.java2uml.core.reflection.model.Clazz;
-import br.com.luque.java2uml.core.reflection.model.Method;
-import br.com.luque.java2uml.core.reflection.model.ScopedClazz;
-import br.com.luque.java2uml.core.reflection.model.UnscopedClazz;
-import br.com.luque.java2uml.core.writer.classdiagram.ClassWriter;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Clazz;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.Method;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.ScopedClazz;
+import br.com.luque.java2uml.core.classdiagram.reflection.model.UnscopedClazz;
+import br.com.luque.java2uml.core.classdiagram.writer.ClassWriter;
 
 import java.util.Objects;
 import java.util.stream.Collectors;

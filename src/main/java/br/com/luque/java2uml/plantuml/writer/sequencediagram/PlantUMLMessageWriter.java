@@ -7,6 +7,6 @@ import java.util.Objects;
 public class PlantUMLMessageWriter {
     public String getString(Message message) {
         Objects.requireNonNull(message);
-        return PlantUMLHelper.getParticipantObjectName(message.getFrom()) + " -> " + PlantUMLHelper.getParticipantObjectName(message.getTo()) + ": " + message.getTo().getMethod().getName();
+        return " " + PlantUMLHelper.getParticipantObjectName(message.getFrom()) + PlantUMLHelper.getTextForMessageType(message.getType()) + PlantUMLHelper.getParticipantObjectName(message.getTo()) + ": " + message.getTo().getMethod().getName();
     }
 }

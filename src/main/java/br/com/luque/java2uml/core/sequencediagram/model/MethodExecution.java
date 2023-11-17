@@ -4,12 +4,32 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class MethodExecution {
+    private String id;
     private Participant participant;
     private Method method;
+    private long threadId;
 
-    public MethodExecution(Participant participant, Method method) {
+    public MethodExecution(Long threadId, String id, Participant participant, Method method) {
+        setThreadId(threadId);
+        setId(id);
         setParticipant(participant);
         setMethod(method);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = Objects.requireNonNull(id);
+    }
+
+    public long getThreadId() {
+        return threadId;
+    }
+
+    public void setThreadId(long threadId) {
+        this.threadId = Objects.requireNonNull(threadId);
     }
 
     public Participant getParticipant() {
@@ -28,8 +48,9 @@ public class MethodExecution {
         this.method = Objects.requireNonNull(method);
     }
 
-    public boolean correspondsTo(String className, String objectId, boolean constructor, String methodName, String methodReturnType, String... methodParameterTypes) {
-        return participant.getClassName().equals(className)
+    public boolean correspondsTo(long threadId, String className, String objectId, boolean constructor, String methodName, String methodReturnType, String... methodParameterTypes) {
+        return this.threadId == threadId
+            && participant.getClassName().equals(className)
             && Objects.equals(participant.getObjectId(), objectId)
             && method.isConstructor()
             && method.getName().equals(methodName)

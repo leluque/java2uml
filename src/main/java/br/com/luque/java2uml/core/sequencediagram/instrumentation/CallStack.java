@@ -7,14 +7,15 @@ import br.com.luque.java2uml.core.sequencediagram.model.Participant;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 public enum CallStack {
     INSTANCE;
 
-    private Set<Participant> participants = new HashSet<>();
-    private Set<Method> methods = new HashSet<>();
+    private final List<Participant> participants = new ArrayList<>();
+    private final Set<Method> methods = new HashSet<>();
     // Not using stack to handle async calls
-    private List<MethodExecution> stack = new LinkedList<>();
-    private List<Message> messages = new LinkedList<>();
+    private final List<MethodExecution> stack = new LinkedList<>();
+    private final List<Message> messages = new LinkedList<>();
 
     public Participant getParticipant(String className, String objectId) {
         Participant existing = participants.stream()
@@ -52,41 +53,39 @@ public enum CallStack {
         return existing;
     }
 
-    public void registerStart(String className,
+    public void registerStart(long threadId,
+                              String executionId,
+                              String className,
                               String objectId,
                               boolean constructor,
                               String methodName,
                               String methodReturnType,
                               String[] methodParameterTypes) {
-        MethodExecution methodExecution = new MethodExecution(getParticipant(className, objectId), getMethod(className, constructor, methodName, methodReturnType, methodParameterTypes));
+        MethodExecution to = new MethodExecution(threadId, executionId, getParticipant(className, objectId), getMethod(className, constructor, methodName, methodReturnType, methodParameterTypes));
 
         if (stack.isEmpty()) {
-            messages.add(new Message(methodExecution));
+            messages.add(new Message(to));
         } else {
-            messages.add(new Message(stack.get(stack.size() - 1), methodExecution));
-        }
-        stack.add(methodExecution);
-    }
-
-    public void registerEnd(String className,
-                            String objectId,
-                            boolean constructor,
-                            String methodName,
-                            String methodReturnType,
-                            String[] methodParameterTypes) {
-        ListIterator<MethodExecution> iterator = stack.listIterator(stack.size());
-
-        // Iterate from last to first
-        while (iterator.hasPrevious()) {
-            MethodExecution methodExecution = iterator.previous();
-            if (methodExecution.correspondsTo(className, objectId, constructor, methodName, methodReturnType, methodParameterTypes)) {
-                iterator.remove();
-                break;
+            MethodExecution from = stack.get(stack.size() - 1);
+            Message.Types type = Message.getDefaultTypeFor(to);
+            if (threadId != from.getThreadId()) {
+                type = Message.Types.ASYNCHRONOUS;
             }
+            messages.add(new Message(from, to, type));
         }
+        stack.add(to);
     }
 
-    public Set<Participant> getParticipants() {
+    public void registerEnd(String executionId, String objectId) {
+        stack.stream().filter(m -> m.getId().equals(executionId)).findFirst().ifPresent(m -> {
+            if (m.getParticipant().getObjectId().isEmpty() && !objectId.isEmpty()) {
+                m.getParticipant().setObjectId(objectId);
+            }
+            stack.remove(m);
+        });
+    }
+
+    public List<Participant> getParticipants() {
         return participants;
     }
 

@@ -83,7 +83,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                         <manifestEntries>
-                            <Premain-Class>br.com.luque.java2uml.core.sequencediagram.instrumentation.MethodLoggerAgent</Premain-Class>
+                            <Premain-Class>br.com.luque.java2uml.core.sequencediagram.instrumentation.MethodTransformerAgent</Premain-Class>
                             <Can-Redefine-Classes>false</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>
                         </manifestEntries>

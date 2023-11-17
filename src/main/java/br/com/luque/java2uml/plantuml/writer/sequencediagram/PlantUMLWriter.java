@@ -11,10 +11,11 @@ public class PlantUMLWriter {
         PlantUMLMessageWriter messageWriter = new PlantUMLMessageWriter();
         StringBuilder result = new StringBuilder();
         result.append("@startuml\n");
+        result.append(" actor Actor as %s%n".formatted(PlantUMLHelper.ENTRY_POINT_OBJECT_NAME));
         for (Participant participant : CallStack.INSTANCE.getParticipants()) {
             result.append(participantWriter.getString(participant)).append("\n");
         }
-        result.append("participant EntryPoint as entryPoint\n");
+        result.append("\n");
         for (Message message : CallStack.INSTANCE.getMessages()) {
             if (message.getTo().getMethod().isConstructor()) {
                 result.append(constructionMessageWriter.getString(message)).append("\n");
@@ -23,7 +24,7 @@ public class PlantUMLWriter {
             }
         }
 
-        result.append("\n@enduml");
+        result.append("@enduml");
         return result.toString().trim();
     }
 }

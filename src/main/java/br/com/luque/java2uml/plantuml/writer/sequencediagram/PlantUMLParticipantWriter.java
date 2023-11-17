@@ -7,6 +7,6 @@ import java.util.Objects;
 public class PlantUMLParticipantWriter {
     public String getString(Participant participant) {
         Objects.requireNonNull(participant);
-        return " participant " + participant.getClassName() + " as " + participant.getObjectId();
+        return " participant " + participant.getClassName() + " as " + (participant.getObjectId().isEmpty() ? participant.getClassName() : participant.getObjectId());
     }
 }

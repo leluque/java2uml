@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Premain-Class: br.com.luque.java2uml.core.sequencediagram.instrumentation.MethodLoggerAgent
+Premain-Class: br.com.luque.java2uml.core.sequencediagram.instrumentation.MethodTransformerAgent
 Can-Redefine-Classes: true
 Can-Retransform-Classes: true

@@ -33,9 +33,6 @@ generate the diagram textual representation. This representation can then be use
 To generate an YUML class diagram, simply pass a set of packages and exclusion rules you wish.
 ```java
 // Example code using the yUML facade.
-String diagramText=YUML.generateClassDiagram("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
-
-// You can also use exclusion rules.
 YUML yUML=new YUML(); // Facade
 yUML.addPackages("br.com.luque.java2uml.example.virtualdrive.domain","com.anotherpackage");
 yUML.addClasses("java.lang.String","java.util.ArrayList");

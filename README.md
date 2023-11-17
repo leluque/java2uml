@@ -66,7 +66,7 @@ String diagramText=plantUML.generateClassDiagram();
 PlantUML plantUML=new PlantUML().doNotGenerateAccessors();
 ```
 
-### PlantUML sequence diagram (under construction)
+### PlantUML sequence diagram
 
 Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path to the jar file and br.com.luque.Main by the project main class and run the following command:
     
@@ -75,7 +75,6 @@ Enter the project folder, replace the `path-to-java2uml-1.0.0.jar` with the path
 ## Room for improvement
 
 - [ ] Add unit tests.
-- [ ] Add support for other diagram tools (e.g., PlantUML).
 - [ ] Add support for other diagram types (e.g., object diagrams).
 - [ ] Generate diagram images directly from the tool.
 - [ ] Support execution as maven plugin to generate diagrams during build.

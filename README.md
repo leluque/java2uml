@@ -2,18 +2,16 @@
 
 ## Overview
 
-Java2UML is a tool designed to generate class diagrams from Java classes using reflection and class loading techniques.
+Java2UML is a library designed to generate UML class and sequence diagrams from Java classes using instrumentation, reflection, and class loading techniques.
 This project simplifies the process of visualizing the structure and relationships of classes in a Java project, making
 it useful for documentation and analysis purposes.
 
-It currently transforms Java classes into [yUML](https://yuml.me) class diagram code, but may be extended to other tools
-in the future, such as PlantUML.
+It currently transforms Java classes into [yUML](https://yuml.me) and PlantUML class diagrams. 
 
 ## How it works
 
 Given a set of packages and exclusion rules, Java2UML will recursively search for all classes in those packages and
-generate a yUML class diagram code. This code can then be used to generate a visual class diagram using the
-[yUML](https://yuml.me) tool.
+generate the diagram textual representation. This representation can then be used to generate a diagram.
 
 ## Getting Started
 

@@ -6,11 +6,14 @@ public enum Visibilities {
     PACKAGE, PRIVATE, PROTECTED, PUBLIC;
 
     public static Visibilities fromModifiers(int modifiers) {
-        return switch (modifiers) {
-            case Modifier.PRIVATE -> PRIVATE;
-            case Modifier.PROTECTED -> PROTECTED;
-            case Modifier.PUBLIC -> PUBLIC;
-            default -> PACKAGE;
-        };
+        if(Modifier.isPrivate(modifiers)) {
+            return PRIVATE;
+        } else if(Modifier.isProtected(modifiers)) {
+            return PROTECTED;
+        } else if(Modifier.isPublic(modifiers)) {
+            return PUBLIC;
+        } else {
+            return PACKAGE;
+        }
     }
 }
